@@ -1,36 +1,34 @@
-#include<stdio.h>
-void print(int a[], int n)
+#include <stdio.h>
+void bubblesort(int arr[], int size)
 {
-int i;
-    for(i = 0; i < n; i++)
-    {
-        printf("%d ",a[i]);
-    }
-    }
- void bubble(int a[], int n)
- {
-   int i, j, temp;
-   for(i = 0; i < n; i++)
-    {
-      for(j = i+1; j < n; j++)
-        {
-            if(a[j] < a[i])
-            {
-                temp = a[i];
-                a[i] = a[j];
-                a[j] = temp;
-            }
-        }
-    }
- }
-void main ()
+int i, j;
+for (i = 0;  i < size; i++)
 {
-    int i, j,temp;
-    int a[5] = { 10, 35, 32, 13, 26};
-    int n = sizeof(a)/sizeof(a[0]);
-    printf("Before sorting array elements are - \n");
-    print(a, n);
-    bubble(a, n);
-    printf("\nAfter sorting array elements are - \n");
-    print(a, n);
+for (j = 0; j < size - i; j++)
+{
+if (arr[j] > arr[j+1])
+swap(&arr[j], &arr[j+1]);
+}
+}
+}
+void swap(int *a, int *b)
+{
+int temp;
+temp = *a;
+*a = *b;
+*b = temp;
+}
+int main()
+{
+int array[100], i, size;
+printf("How many numbers you want to sort:  ");
+scanf("%d", &size);
+printf("\nEnter %d numbers : ", size);
+for (i = 0; i < size; i++)
+scanf("%d", &array[i]);
+bubblesort(array, size);
+printf("\nSorted array is ");
+for (i = 0; i < size; i++)
+printf(" %d ", array[i]);
+return 0;
 }
