@@ -1,11 +1,26 @@
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
 int main()
 {
-char str[40];
-printf(" \n Enter a string to be reversed: ");
-scanf("%s",&str);
-printf(" \n After reversing the string: %s ", strrev(str));
-return 0;
+  char str[1000], rev[1000];
+  int i, j, count = 0;
+  printf("enter the string to be reversed:");
+  scanf("%s", str);
+  printf("\nString Before Reverse: %s", str);
+
+  while (str[count] != '\0')
+  {
+    count++;
+  }
+  j = count - 1;
+
+
+  for (i = 0; i < count; i++)
+  {
+    rev[i] = str[j];
+    j--;
+  }
+
+  printf("\nString After Reverse: %s", rev);
 }
+
 
