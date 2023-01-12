@@ -1,36 +1,47 @@
-#include <limits.h>
 #include <stdio.h>
-#define R 3
-#define C 3
-int min(int x, int y, int z);
-int minCost(int cost[R][C], int m, int n)
-{
-int i, j;
-int tc[R][C];
-tc[0][0] = cost[0][0];
-for (i = 1; i <= m; i++)
-tc[i][0] = tc[i - 1][0] + cost[i][0];
-for (j = 1; j <= n; j++)
-tc[0][j] = tc[0][j - 1] + cost[0][j];
-for (i = 1; i <= m; i++)
-for (j = 1; j <= n; j++)
-tc[i][j] = min(tc[i - 1][j - 1],
-tc[i - 1][j],
-tc[i][j - 1])
-+ cost[i][j];
-return tc[m][n];
-}
-int min(int x, int y, int z)
-{
-if (x < y)
-return (x < z) ? x : z;
-else
-return (y < z) ? y : z;
-}
-int main()
-{
-int cost[R][C] = { { 1, 2, 3 },{ 4, 8, 2 },{ 1, 5, 3 } };
-printf(" Optimal cost: %d", minCost(cost, 2, 2));
-return 0;
+#include <stdlib.h>
+#include <limits.h>
+
+#define V 4
+#define INF INT_MAX
+
+int dist[V][V] = { { 0, 20, 42, 25 },
+				   { 20, 0, 30, 34 },
+				   { 42, 30, 0, 10 },
+				   { 25, 34, 10, 0 } };
+
+int visited[V];
+int path[V];
+int min_cost = INT_MAX;
+
+void TSP(int city, int cost, int count) {
+    if (count == V && dist[city][0])
+    {
+        min_cost = (min_cost, cost + dist[city][0]);
+        return;
+    }
+    for (int i = 0; i < V; i++) {
+        if (!visited[i] && dist[city][i]) {
+            visited[i] = 1;
+            path[count] = i;
+            TSP(i, cost + dist[city][i], count + 1);
+            visited[i] = 0;
+        }
+    }
 }
 
+int main() {
+    for (int i = 0; i < V; i++)
+        visited[i] = 0;
+
+    path[0] = 0;
+    visited[0] = 1;
+    TSP(0, 0, 1);
+    printf("Minimum cost: %d\n", min_cost);
+
+    printf("Optimal Path: ");
+    for (int i = 0; i < V; i++)
+        printf("%d ", path[i]);
+
+    return 0;
+}
